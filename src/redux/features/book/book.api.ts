@@ -9,7 +9,7 @@ const bookApi = baseApi.injectEndpoints({
       IResponseRedux<IBook[]>,
       Record<string, unknown> | undefined
     >({
-      query: (args) => ({
+      query: (args = undefined) => ({
         url: "/books",
         params: generateUrlParams(args),
       }),
