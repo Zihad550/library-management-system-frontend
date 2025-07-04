@@ -1,15 +1,15 @@
-import type { JSX, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export interface IUserPath {
   name?: string;
   path: string;
-  Component: () => JSX.Element;
+  element: ReactNode;
   icon?: ReactNode;
 }
 
 export interface IRoute {
   path: string;
-  Component: () => JSX.Element;
+  element: ReactNode;
 }
 
 export interface INavItem {

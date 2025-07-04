@@ -1,32 +1,36 @@
-import App from "@/App";
 import type { IUserPath } from "@/types/router.type";
+import Books from "@/pages/Books";
 
 export const publicPaths: IUserPath[] = [
   {
+    path: "",
+    element: <Books />,
+  },
+  {
     name: "Books",
     path: "books",
-    Component: App,
+    element: <Books />,
   },
   {
     name: "Create Book",
     path: "create-book",
-    Component: App,
+    element: <Books />,
   },
   {
     path: "books/:id",
-    Component: App,
+    element: <Books />,
   },
   {
     path: "edit-book/:id",
-    Component: App,
+    element: <Books />,
   },
   {
     path: "borrow/:bookId",
-    Component: App,
+    element: <Books />,
   },
   {
     name: "Borrow Summary",
     path: "borrow-summary",
-    Component: App,
+    element: <Books />,
   },
 ];
