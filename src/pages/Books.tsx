@@ -1,21 +1,14 @@
+import BookCard from "@/components/module/books/BookCard";
 import Title from "@/components/shared/Title";
 import { useGetBooksQuery } from "@/redux/features/book/book.api";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import BookCard from "@/components/module/books/BookCard";
 
 const Books = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
 
   console.log(data);
   if (isLoading) return <p>Loading...</p>;
+  if (!data?.data) return <p>No books available</p>;
+
   return (
     <div className="container mx-auto">
       <Title>Books</Title>

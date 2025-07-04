@@ -1,3 +1,4 @@
+import type { InputHTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
 import {
   FormControl,
@@ -13,8 +14,14 @@ interface IAppInputProps {
   name: string;
   label: string;
   description?: string;
+  type?: InputHTMLAttributes<HTMLInputElement>["type"];
 }
-const AppInput = ({ name, label, description }: IAppInputProps) => {
+const AppInput = ({
+  name,
+  label,
+  description,
+  type = "text",
+}: IAppInputProps) => {
   const method = useFormContext();
   return (
     <FormField
@@ -24,7 +31,7 @@ const AppInput = ({ name, label, description }: IAppInputProps) => {
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={label} {...field} />
+            <Input type={type} placeholder={label} {...field} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

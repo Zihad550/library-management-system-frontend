@@ -39,10 +39,11 @@ const bookApi = baseApi.injectEndpoints({
 
       invalidatesTags: ["books"],
     }),
-    createBook: build.mutation({
-      query: () => ({
+    createBook: build.mutation<IResponseRedux<IBook>, IBook>({
+      query: (payload) => ({
         method: "POST",
         url: "/books",
+        body: payload,
       }),
       invalidatesTags: ["books"],
     }),

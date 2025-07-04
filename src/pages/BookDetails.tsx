@@ -1,9 +1,5 @@
-import {
-  useDeleteBookByIdMutation,
-  useGetBookByIdQuery,
-} from "@/redux/features/book/book.api";
-import { useParams } from "react-router";
-import { Edit, Trash2, ArrowLeft } from "lucide-react";
+import DeleteBookConfirmationDialog from "@/components/module/books/DeleteBookConfirmationDialog";
+import Spinner from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,12 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { NavLink } from "react-router";
-import Spinner from "@/components/shared/Spinner";
-import { useNavigate } from "react-router";
-import { toast } from "sonner";
-import DeleteBookConfirmationDialog from "@/components/module/books/DeleteBookConfirmationDialog";
 import { BookGenreMap } from "@/constants/book.constants";
+import {
+  useDeleteBookByIdMutation,
+  useGetBookByIdQuery,
+} from "@/redux/features/book/book.api";
+import { ArrowLeft, Edit } from "lucide-react";
+import { NavLink, useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 const BookDetails = () => {
   const { id } = useParams();
