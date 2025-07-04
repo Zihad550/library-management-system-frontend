@@ -4,5 +4,5 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_APP_API_BASE_URL }),
   endpoints: () => ({}),
-  tagTypes: ["books"],
+  tagTypes: ["books", "borrows"],
 });
