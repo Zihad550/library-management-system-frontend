@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useParams } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod/v4";
 
@@ -8,13 +8,13 @@ import AppInput from "@/components/form/AppInput";
 import AppSelect from "@/components/form/AppSelect";
 import AppTextarea from "@/components/form/AppTextarea";
 import Spinner from "@/components/shared/Spinner";
+import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { BookGenreMap } from "@/constants/book.constants";
 import {
@@ -44,7 +44,6 @@ const EditBook = () => {
   const { data: bookData, isLoading: isBookLoading } = useGetBookByIdQuery(
     id as string,
   );
-  console.log(bookData?.data);
   const [updateBook, { isLoading: isUpdateLoading }] = useUpdateBookMutation();
   const navigate = useNavigate();
 
@@ -57,7 +56,6 @@ const EditBook = () => {
     available: bookData?.data?.available ?? true,
     genre: bookData?.data?.genre ?? "FICTION",
   };
-  console.log(defaultValues);
 
   const onSubmit = async (values: FieldValues) => {
     const toastId = toast.loading("Updating book...");
@@ -69,66 +67,75 @@ const EditBook = () => {
 
       if (res?.success) {
         toast.success("Book updated successfully!", { id: toastId });
-        navigate(`/books`);
+        navigate(`/books/${id}`);
       }
-    } catch {
+    } catch (err: any) {
+      if (err?.data?.message) toast.error(err.data.message, { id: toastId });
       toast.error("Failed to update book. Please try again.", { id: toastId });
     }
   };
 
-  if (isBookLoading) {
-    return <Spinner />;
+  if (isBookLoading) return <Spinner />;
+
+  if (!bookData?.data) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Card className="max-w-2xl mx-auto">
+          <CardContent className="flex flex-col items-center p-8 space-y-4">
+            <div className="text-5xl text-red-500/80">📚</div>
+            <p className="text-xl text-gray-600">Book not found</p>
+            <Button asChild variant="outline">
+              <NavLink to="/books">Back to Books</NavLink>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto my-10 px-4">
-      <Card>
+    <div className="container mx-auto px-4 py-8">
+      <Title>Edit Book</Title>
+      <Card className="max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle>Edit Book</CardTitle>
-          <CardDescription>Update the book details below.</CardDescription>
+          <CardDescription>Update the book information below.</CardDescription>
         </CardHeader>
         <CardContent>
-          {bookData?.data && (
-            <AppForm
-              key={bookData.data._id} // Re-initialize form when data loads
-              onSubmit={onSubmit}
-              resolver={zodResolver(formSchema)}
-              defaultValues={defaultValues}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <AppInput name="title" label="Book Title" />
-                <AppInput name="author" label="Author" />
-                <AppInput name="isbn" label="ISBN" type="string" />
-                <AppSelect
-                  name="genre"
-                  label="Genre"
-                  items={genreOptions}
-                  placeholder="Select a genre"
+          <AppForm
+            key={bookData.data._id}
+            onSubmit={onSubmit}
+            resolver={zodResolver(formSchema)}
+            defaultValues={defaultValues}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <AppInput name="title" label="Book Title" />
+              <AppInput name="author" label="Author" />
+              <AppInput name="isbn" label="ISBN" type="string" />
+              <AppSelect
+                name="genre"
+                label="Genre"
+                items={genreOptions}
+                placeholder="Select a genre"
+              />
+              <AppInput name="copies" label="Number of Copies" type="number" />
+              <div className="md:col-span-2">
+                <AppTextarea
+                  name="description"
+                  label="Description"
+                  placeholder="A brief description of the book..."
                 />
-                <AppInput
-                  name="copies"
-                  label="Number of Copies"
-                  type="number"
-                />
-                <div className="md:col-span-2">
-                  <AppTextarea
-                    name="description"
-                    label="Description"
-                    placeholder="A brief description of the book..."
-                  />
-                </div>
               </div>
-              <div className="flex justify-end mt-8">
-                <Button
-                  type="submit"
-                  disabled={isUpdateLoading}
-                  className="w-full md:w-auto"
-                >
-                  {isUpdateLoading ? "Updating..." : "Update Book"}
-                </Button>
-              </div>
-            </AppForm>
-          )}
+            </div>
+            <div className="flex justify-end mt-8">
+              <Button
+                type="submit"
+                disabled={isUpdateLoading}
+                className="w-full md:w-auto"
+              >
+                {isUpdateLoading ? "Updating..." : "Update Book"}
+              </Button>
+            </div>
+          </AppForm>
         </CardContent>
       </Card>
     </div>

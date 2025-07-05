@@ -1,11 +1,11 @@
 import DeleteBookDialog from "@/components/module/books/DeleteBookConfirmationDialog";
 import Spinner from "@/components/shared/Spinner";
+import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { BookGenreMap } from "@/constants/book.constants";
@@ -19,90 +19,95 @@ const BookDetails = () => {
   const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
-  else if (!data?.data)
+
+  if (!data?.data) {
     return (
-      <div className="container mx-auto mt-10 p-4 text-center">
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-lg text-red-600">Book data not found</p>
-            <Button asChild variant="outline" className="mt-4">
-              <NavLink to="/books">
-                <ArrowLeft className="h-4 w-4 mr-2" /> Back to Books
+      <div className="container mx-auto px-4 py-8">
+        <Card className="max-w-2xl mx-auto">
+          <CardContent className="flex flex-col items-center p-8 space-y-4">
+            <div className="text-5xl text-red-500/80">📚</div>
+            <p className="text-xl text-gray-600">Book not found</p>
+            <Button asChild variant="outline">
+              <NavLink to="/books" className="flex items-center gap-2">
+                <ArrowLeft size={18} /> Back to Books
               </NavLink>
             </Button>
           </CardContent>
         </Card>
       </div>
     );
+  }
 
   const book = data.data;
 
   return (
-    <div className="container mx-auto mt-10 p-4">
-      <Button asChild variant="outline" className="mb-6">
-        <NavLink to="/books" className="flex items-center">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Back to Books
-        </NavLink>
-      </Button>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex items-center gap-4 mb-8">
+        <Button asChild variant="outline" size="sm">
+          <NavLink to="/books" className="flex items-center gap-2">
+            <ArrowLeft size={18} /> Back
+          </NavLink>
+        </Button>
+        <Title>{book.title}</Title>
+      </div>
 
-      <Card className="overflow-hidden">
-        <div className="p-4">
-          <CardHeader className="p-0">
-            <div className="flex justify-between items-start">
-              <div>
-                <CardTitle className="text-3xl mb-2">{book.title}</CardTitle>
-                <CardDescription className="text-xl mb-4">
-                  by {book.author}
-                </CardDescription>
-              </div>
-              <div className="flex space-x-2">
-                <Button
-                  size="icon"
-                  variant="default"
-                  className="h-10 w-10 rounded-full hover:cursor-pointer"
-                  onClick={() => navigate(`/edit-book/${book._id}`)}
-                >
-                  <Edit className="h-5 w-5" />
-                </Button>
-                <DeleteBookDialog id={book._id} />
-              </div>
+      <Card className="max-w-4xl mx-auto">
+        <div className="p-6">
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <CardTitle className="text-3xl mb-2">{book.title}</CardTitle>
+              <CardDescription className="text-xl">
+                by {book.author}
+              </CardDescription>
+            </div>
+            <div className="flex space-x-2">
+              <Button
+                size="icon"
+                variant="outline"
+                className="h-10 w-10 rounded-full hover:bg-primary/10"
+                onClick={() => navigate(`/edit-book/${book._id}`)}
+              >
+                <Edit className="h-5 w-5" />
+              </Button>
+              <DeleteBookDialog id={book._id} />
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              {BookGenreMap[book.genre]}
+            </span>
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                book.available
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+            >
+              {book.available ? "Available" : "Unavailable"}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-3">Details</h3>
+              <dl className="space-y-2 text-sm">
+                <div className="flex gap-2">
+                  <dt className="font-medium text-gray-500">ISBN:</dt>
+                  <dd>{book.isbn}</dd>
+                </div>
+                <div className="flex gap-2">
+                  <dt className="font-medium text-gray-500">Copies:</dt>
+                  <dd>{book.copies}</dd>
+                </div>
+              </dl>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-2">
-              <span className="text-sm font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800">
-                {BookGenreMap[book.genre]}
-              </span>
-              {book.available ? (
-                <span className="text-sm font-semibold px-3 py-1 rounded-full bg-green-100 text-green-800">
-                  Available
-                </span>
-              ) : (
-                <span className="text-sm font-semibold px-3 py-1 rounded-full bg-red-100 text-red-800">
-                  Unavailable
-                </span>
-              )}
+            <div>
+              <h3 className="text-lg font-semibold mb-3">Description</h3>
+              <p className="text-gray-600 text-sm">{book.description}</p>
             </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <h2 className="text-lg font-semibold">Details</h2>
-                <ul className="mt-2 space-y-2">
-                  <li className="text-gray-600">
-                    <span className="font-medium">ISBN:</span> {book.isbn}
-                  </li>
-                  <li className="text-gray-600">
-                    <span className="font-medium">Copies:</span> {book.copies}
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-lg font-semibold">Description</h2>
-                <p className="mt-2 text-gray-600">{book.description}</p>
-              </div>
-            </div>
-          </CardContent>
+          </div>
         </div>
       </Card>
     </div>

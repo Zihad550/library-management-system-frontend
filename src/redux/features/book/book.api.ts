@@ -23,7 +23,7 @@ const bookApi = baseApi.injectEndpoints({
     }),
     updateBook: build.mutation<
       IResponseRedux<IBook>,
-      { payload: IBook; id: string }
+      { payload: Partial<IBook>; id: string }
     >({
       query: ({ payload, id }) => ({
         method: "PUT",

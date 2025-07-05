@@ -5,14 +5,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import type { ColumnDef } from '@tanstack/react-table';
+} from "@/components/ui/table";
+import type { IBorrowedSummary } from "@/types/borrow.type";
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import type { IBorrowedSummary } from '@/types/borrow.type';
+} from "@tanstack/react-table";
 
 interface BorrowSummaryTableProps {
   columns: ColumnDef<IBorrowedSummary>[];
@@ -27,7 +27,7 @@ const BorrowSummaryTable = ({ columns, data }: BorrowSummaryTableProps) => {
   });
 
   return (
-    <div className="bg-white shadow rounded-lg p-6 overflow-x-auto">
+    <div className="bg-white  rounded-lg p-6 overflow-x-auto">
       <Table className="min-w-full">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -35,13 +35,13 @@ const BorrowSummaryTable = ({ columns, data }: BorrowSummaryTableProps) => {
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  className="px-4 py-2 text-gray-700 font-semibold bg-gray-50"
+                  className="px-4 py-2 text-gray-700 font-semibold "
                 >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                 </TableHead>
               ))}
@@ -50,10 +50,7 @@ const BorrowSummaryTable = ({ columns, data }: BorrowSummaryTableProps) => {
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map((row, idx) => (
-            <TableRow
-              key={row.id}
-              className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-            >
+            <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id} className="px-4 py-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

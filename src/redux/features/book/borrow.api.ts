@@ -21,7 +21,7 @@ const bookApi = baseApi.injectEndpoints({
         url: "/borrow",
         body: payload,
       }),
-      invalidatesTags: ["borrows"],
+      invalidatesTags: ["borrows", "books"],
     }),
   }),
 });
