@@ -1,0 +1,41 @@
+.spinnerContainer {
+    transition: transform 0.2s ease;
+}
+
+.spinnerContainer:hover {
+    transform: scale(1.05);
+}
+
+.spinnerContainer:hover .spinnerForward {
+    animation-duration: 0.75s;
+}
+
+.spinnerContainer:hover .spinnerReverse {
+    animation-duration: 1.5s;
+}
+
+.spinnerForward {
+    animation: spinForward 2s linear infinite;
+}
+
+.spinnerReverse {
+    animation: spinReverse 2s linear infinite;
+}
+
+@keyframes spinForward {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinReverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
