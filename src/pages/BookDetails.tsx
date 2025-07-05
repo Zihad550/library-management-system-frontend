@@ -45,23 +45,8 @@ const BookDetails = () => {
         </NavLink>
       </Button>
 
-      <Card className="p-0 overflow-hidden flex flex-row">
-        <div className="md:w-1/3">
-          <img
-            src={
-              book.coverImgUrl ||
-              "https://via.placeholder.com/350x500?text=No+Cover+Available"
-            }
-            alt={book.title}
-            className="object-cover w-full h-full"
-            onError={(e) => {
-              e.currentTarget.src =
-                "https://via.placeholder.com/350x500?text=No+Cover+Available";
-            }}
-          />
-        </div>
-
-        <div className="md:w-2/3 p-4">
+      <Card className="overflow-hidden">
+        <div className="p-4">
           <CardHeader className="p-0">
             <div className="flex justify-between items-start">
               <div>

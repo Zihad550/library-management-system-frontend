@@ -33,7 +33,6 @@ const formSchema = z.object({
     .string()
     .min(10, "ISBN must be at least 10 characters")
     .max(13, "ISBN must be at most 13 characters"),
-  coverImgUrl: z.string().url("Please enter a valid image URL"),
   description: z.string().optional(),
   copies: z.coerce.number().min(0, "Copies cannot be negative").default(1),
   available: z.boolean().default(true),
@@ -49,7 +48,6 @@ const CreateBook = () => {
     title: "",
     author: "",
     isbn: "",
-    coverImgUrl: "",
     description: "",
     copies: 1,
     available: true,
@@ -66,7 +64,7 @@ const CreateBook = () => {
         toast.success("Book created successfully!", { id: toastId });
         navigate("/books");
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to create book. Please try again.", { id: toastId });
     }
   };
@@ -90,7 +88,7 @@ const CreateBook = () => {
               <AppInput name="title" label="Book Title" />
               <AppInput name="author" label="Author" />
               <AppInput name="isbn" label="ISBN" type="number" />
-              <AppInput name="coverImgUrl" label="Cover Image URL" />
+
               <AppSelect
                 name="genre"
                 label="Genre"

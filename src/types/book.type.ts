@@ -7,7 +7,6 @@ export default interface IBook {
   description?: string;
   copies: number;
   available: boolean;
-  coverImgUrl: string;
 }
 
 export type TBookGenre =
