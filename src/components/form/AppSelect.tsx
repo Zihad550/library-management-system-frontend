@@ -21,6 +21,7 @@ interface IAppSelectProps {
   items: readonly { label: string; value: string }[];
   placeholder?: string;
   description?: string;
+  disabled?: boolean;
 }
 
 const AppSelect = ({
@@ -29,6 +30,7 @@ const AppSelect = ({
   items,
   placeholder,
   description,
+  disabled = false,
 }: IAppSelectProps) => {
   const { control } = useFormContext();
 
@@ -39,7 +41,11 @@ const AppSelect = ({
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            disabled={disabled}
+            onValueChange={field.onChange}
+            defaultValue={field.value}
+          >
             <FormControl>
               <SelectTrigger>
                 <SelectValue

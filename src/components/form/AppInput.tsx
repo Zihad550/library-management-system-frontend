@@ -15,12 +15,14 @@ interface IAppInputProps {
   label: string;
   description?: string;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
+  disabled?: boolean;
 }
 const AppInput = ({
   name,
   label,
   description,
   type = "text",
+  disabled = false,
 }: IAppInputProps) => {
   const method = useFormContext();
   return (
@@ -31,7 +33,12 @@ const AppInput = ({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input type={type} placeholder={label} {...field} />
+            <Input
+              disabled={disabled}
+              type={type}
+              placeholder={label}
+              {...field}
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

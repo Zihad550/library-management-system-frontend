@@ -11,7 +11,7 @@ const bookApi = baseApi.injectEndpoints({
       Record<string, unknown> | undefined
     >({
       query: (args) => ({
-        url: "/borrows",
+        url: "/borrow",
         params: generateUrlParams(args),
       }),
       providesTags: ["borrows"],
@@ -19,7 +19,7 @@ const bookApi = baseApi.injectEndpoints({
     borrowBook: build.mutation<IResponseRedux<IBorrow>, ICreateBorrow>({
       query: (payload) => ({
         method: "POST",
-        url: "/borrows",
+        url: "/borrow",
         body: payload,
       }),
       invalidatesTags: ["borrows"],
