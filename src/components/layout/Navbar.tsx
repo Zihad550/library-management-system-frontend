@@ -21,7 +21,11 @@ const Navbar = () => {
   return (
     <div className="bg-primary text-white sticky top-0 z-50 mb-10">
       <div className="container mx-auto flex items-center justify-between py-4">
-        <Button asChild className="flex items-center gap-x-2">
+        <Button
+          variant="default"
+          asChild
+          className="flex items-center gap-x-2 outline-none"
+        >
           <NavLink to="/">
             <Logo />
             <span className="text-xl font-bold">LMS</span>
