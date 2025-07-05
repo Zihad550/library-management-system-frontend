@@ -1,6 +1,7 @@
 import { baseApi } from "@/redux/api/baseApi";
-import type { IResponseRedux } from "@/types";
+import type { ICreateBorrow, IResponseRedux } from "@/types";
 import type IBook from "@/types/book.type";
+import type IBorrow from "@/types/borrow.type";
 import generateUrlParams from "@/utils/generateUrlParams";
 
 const bookApi = baseApi.injectEndpoints({
@@ -15,10 +16,11 @@ const bookApi = baseApi.injectEndpoints({
       }),
       providesTags: ["borrows"],
     }),
-    borrowBook: build.mutation({
-      query: () => ({
+    borrowBook: build.mutation<IResponseRedux<IBorrow>, ICreateBorrow>({
+      query: (payload) => ({
         method: "POST",
         url: "/borrows",
+        body: payload,
       }),
       invalidatesTags: ["borrows"],
     }),
