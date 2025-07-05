@@ -1,4 +1,4 @@
-import DeleteBookConfirmationDialog from "@/components/module/books/DeleteBookConfirmationDialog";
+import DeleteBookDialog from "@/components/module/books/DeleteBookConfirmationDialog";
 import Spinner from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,35 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BookGenreMap } from "@/constants/book.constants";
-import {
-  useDeleteBookByIdMutation,
-  useGetBookByIdQuery,
-} from "@/redux/features/book/book.api";
+import { useGetBookByIdQuery } from "@/redux/features/book/book.api";
 import { ArrowLeft, Edit } from "lucide-react";
 import { NavLink, useNavigate, useParams } from "react-router";
-import { toast } from "sonner";
 
 const BookDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetBookByIdQuery(id as string);
-  const [deleteBook, { isLoading: isDeleting }] = useDeleteBookByIdMutation();
   const navigate = useNavigate();
 
-  const handleDelete = async () => {
-    if (!data?.data) return;
-    const toastId = toast.loading("Deleting book...");
-    try {
-      const res = await deleteBook(data.data._id).unwrap();
-      if (res.success) {
-        toast.success("Book deleted successfully", { id: toastId });
-        navigate("/books");
-      }
-    } catch (err) {
-      toast.error("Failed to delete book", { id: toastId });
-    }
-  };
-
-  if (isLoading || isDeleting) return <Spinner />;
+  if (isLoading) return <Spinner />;
   else if (!data?.data)
     return (
       <div className="container mx-auto mt-10 p-4 text-center">
@@ -98,7 +79,7 @@ const BookDetails = () => {
                 >
                   <Edit className="h-5 w-5" />
                 </Button>
-                <DeleteBookConfirmationDialog handleDelete={handleDelete} />
+                <DeleteBookDialog id={book._id} />
               </div>
             </div>
 
