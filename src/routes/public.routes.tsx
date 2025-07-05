@@ -1,10 +1,10 @@
-import type { IUserPath } from "@/types/router.type";
-import Books from "@/pages/Books";
-import CreateBook from "@/pages/CreateBook";
 import BookDetails from "@/pages/BookDetails";
-import EditBook from "@/pages/EditBook";
+import Books from "@/pages/Books";
 import BorrowBook from "@/pages/BorrowBook";
 import BorrowSummary from "@/pages/BorrowSummary";
+import CreateBook from "@/pages/CreateBook";
+import EditBook from "@/pages/EditBook";
+import type { IUserPath } from "@/types/router.type";
 
 export const publicPaths: IUserPath[] = [
   {
@@ -12,12 +12,12 @@ export const publicPaths: IUserPath[] = [
     element: <Books />,
   },
   {
-    name: "Books",
+    name: "All Books",
     path: "books",
     element: <Books />,
   },
   {
-    name: "Create Book",
+    name: "Add Book",
     path: "create-book",
     element: <CreateBook />,
   },

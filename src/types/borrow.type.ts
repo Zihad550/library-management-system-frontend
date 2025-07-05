@@ -9,3 +9,8 @@ export default interface IBorrow {
 export interface ICreateBorrow extends IBorrow {
   book: string;
 }
+
+export interface IBorrowedSummary {
+  book: { title: string; isbn: string };
+  totalQuantity: number;
+}

@@ -1,13 +1,12 @@
 import { baseApi } from "@/redux/api/baseApi";
-import type { ICreateBorrow, IResponseRedux } from "@/types";
-import type IBook from "@/types/book.type";
+import type { IBorrowedSummary, ICreateBorrow, IResponseRedux } from "@/types";
 import type IBorrow from "@/types/borrow.type";
 import generateUrlParams from "@/utils/generateUrlParams";
 
 const bookApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     borrowedBookSummary: build.query<
-      IResponseRedux<IBook[]>,
+      IResponseRedux<IBorrowedSummary[]>,
       Record<string, unknown> | undefined
     >({
       query: (args) => ({
