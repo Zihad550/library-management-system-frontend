@@ -37,8 +37,7 @@ const bookApi = baseApi.injectEndpoints({
         method: "DELETE",
         url: `/books/${id}`,
       }),
-
-      invalidatesTags: ["books"],
+      invalidatesTags: ["books", "borrows"],
     }),
     createBook: build.mutation<IResponseRedux<IBook>, IBook>({
       query: (payload) => ({
