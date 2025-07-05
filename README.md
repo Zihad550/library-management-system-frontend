@@ -1,6 +1,6 @@
 
 # welcome to Library Management System
-- A library management website. [Live url](http://localhost:5173)
+- A library management website. [Live url](https://library-management-system-frontend-one.vercel.app)
 
 ## **Follow the below steps to setup the project**
 1. **clone the project.**
