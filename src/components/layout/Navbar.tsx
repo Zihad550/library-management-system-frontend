@@ -19,7 +19,7 @@ import Logo from "../shared/Logo";
 const Navbar = () => {
   const routes = navItemGenerator(publicPaths);
   return (
-    <div className="bg-primary text-white sticky top-0 z-50">
+    <div className="bg-primary text-white sticky top-0 z-50 mb-10">
       <div className="container mx-auto flex items-center justify-between py-4">
         <Button asChild className="flex items-center gap-x-2">
           <NavLink to="/">
