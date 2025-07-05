@@ -37,14 +37,15 @@ const Footer = () => {
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <p className="text-gray-400">123 Library Avenue</p>
-            <p className="text-gray-400">Knowledge City, KC 54321</p>
+            <p className="text-gray-400">876 Elm Street</p>
+            <p className="text-gray-400">Anytown, CA 90210</p>
             <p className="mt-2">
               <a
-                href="mailto:contact@lms.com"
+                href="mailto:jehadhossain008@gmail.com"
+                target="_blank"
                 className="text-gray-400 hover:text-green-400 transition-colors duration-300"
               >
-                contact@lms.com
+                jehadhossain008@gmail.com
               </a>
             </p>
           </div>
@@ -54,19 +55,21 @@ const Footer = () => {
             <div className="flex space-x-4">
               {/* Replace with actual icons */}
               <a
-                href="#"
+                href="https://www.facebook.com/zihad31hussain"
+                target="_blank"
                 className="text-gray-400 hover:text-white transition-colors duration-300"
               >
                 Facebook
               </a>
               <a
-                href="#"
+                href="https://jehad-hossain.netlify.app/"
+                target="_blank"
                 className="text-gray-400 hover:text-white transition-colors duration-300"
               >
-                Twitter
+                Portfolio
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/jehad-hossain"
                 className="text-gray-400 hover:text-white transition-colors duration-300"
               >
                 LinkedIn
