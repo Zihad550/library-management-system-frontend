@@ -49,7 +49,7 @@ const BorrowSummaryTable = ({ columns, data }: BorrowSummaryTableProps) => {
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows.map((row, idx) => (
+          {table.getRowModel().rows.map((row) => (
             <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id} className="px-4 py-2">
