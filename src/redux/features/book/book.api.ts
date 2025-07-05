@@ -19,13 +19,14 @@ const bookApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/books/${id}`,
       }),
+      providesTags: ["books"],
     }),
     updateBook: build.mutation<
       IResponseRedux<IBook>,
       { payload: IBook; id: string }
     >({
       query: ({ payload, id }) => ({
-        method: "PATCH",
+        method: "PUT",
         url: `/books/${id}`,
         body: payload,
       }),

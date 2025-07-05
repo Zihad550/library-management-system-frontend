@@ -29,10 +29,7 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   author: z.string().min(1, "Author is required"),
   genre: z.enum(Object.keys(BookGenreMap)),
-  isbn: z
-    .string()
-    .min(10, "ISBN must be at least 10 characters")
-    .max(13, "ISBN must be at most 13 characters"),
+  isbn: z.string(),
   description: z.string().optional(),
   copies: z.coerce.number().min(0, "Copies cannot be negative").default(1),
   available: z.boolean().default(true),
